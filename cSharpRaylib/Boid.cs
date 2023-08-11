@@ -17,13 +17,13 @@ namespace cSharpRaylib
         private float minSpeed = 25;
 
         private float separationDistance = 30;
-        private float separationForce = 5f;
+        private float separationForce = 15f;
 
         private float alignmentDistance = 30;
-        private float alignmentForce = 3f;
+        private float alignmentForce = 13f;
 
         private float cohesionDistance = 20;
-        private float cohesionForce = 2f;
+        private float cohesionForce = 12f;
 
         private Vector2 position;
         private Vector2 velocity;
@@ -52,7 +52,7 @@ namespace cSharpRaylib
 
                 var norm = Vector2.Normalize(position - bo.position);
 
-                acceleration += norm * d * separationForce;
+                acceleration += norm * separationForce;
             }
         }
 
@@ -111,11 +111,7 @@ namespace cSharpRaylib
 
             velocity += acceleration * dt;
 
-            velocity = Vector2.Clamp(velocity, new Vector2(-maxSpeed), new Vector2(maxSpeed));
-            if (velocity.Length() < minSpeed)
-            {
-                velocity = Vector2.Normalize(velocity)*minSpeed;
-            }
+            velocity = Vector2.Normalize(velocity)*maxSpeed;
 
             position += velocity * dt;
             acceleration *= 0;
